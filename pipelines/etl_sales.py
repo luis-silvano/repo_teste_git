@@ -7,8 +7,8 @@ df = spark.read.format("parquet").load(source_path)
 # Regras simples
 limpo = (
     df
-    .filter(F.col("status") == "OK")
-    .filter(F.col("amount") > 0)
+    .filter(F.col("status") == "ATIVO")
+    .filter(F.col("amount") >= 100)
 )
 
 # KPIs
@@ -22,11 +22,10 @@ fato = (
 )
 
 # Saída
-output_path = "/mnt/consumezone/demo/sales/fato_vendas"
+output_path = "/mnt/consumezone/demo/sales/fato_vendas_temporario"
 (
     fato
     .write
-    .partitionBy("sk_anomes")
     .mode("overwrite")
     .format("parquet")
     .save(output_path)
