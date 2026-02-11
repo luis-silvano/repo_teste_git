@@ -1,14 +1,14 @@
 from pyspark.sql import functions as F
 
 # Simula leitura
-source_path = "/mnt/rawzone/demo/sales"
+source_path = "/mnt/rawzone/demo/sales_teste"
 df = spark.read.format("parquet").load(source_path)
 
 # Regras simples
 limpo = (
     df
     .filter(F.col("status") == "OK")
-    .filter(F.col("amount") > 0)
+    .filter(F.col("amount") > 100)
 )
 
 # KPIs
@@ -26,7 +26,6 @@ output_path = "/mnt/consumezone/demo/sales/fato_vendas"
 (
     fato
     .write
-    .partitionBy("sk_anomes")
     .mode("overwrite")
     .format("parquet")
     .save(output_path)
