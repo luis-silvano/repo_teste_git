@@ -1,14 +1,14 @@
 from pyspark.sql import functions as F
 
 # Simula leitura
-source_path = "/mnt/rawzone/demo/sales"
+source_path = "/mnt/rawzone/demo/sales_teste"
 df = spark.read.format("parquet").load(source_path)
 
 # Regras simples
 limpo = (
     df
     .filter(F.col("status").isin(["OK", "REPROCESS"]))
-    .filter(F.col("amount") >= 0)
+    .filter(F.col("amount") >= 150)
 )
 
 # KPIs
