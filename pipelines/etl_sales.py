@@ -7,8 +7,8 @@ df = spark.read.format("parquet").load(source_path)
 # Regras simples
 limpo = (
     df
-    .filter(F.col("status") == "OK")
-    .filter(F.col("amount") > 100)
+    .filter(F.col("status") == "Ativo")
+    .filter(F.col("amount") > 200)
 )
 
 # KPIs
