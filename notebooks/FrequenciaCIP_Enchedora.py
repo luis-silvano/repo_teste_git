@@ -1352,7 +1352,7 @@ df_paradas_trechos_desin = (df_paradas_trechos_desin
          first('DESC_ETAPA').alias('DESC_ETAPA'))
     .drop("AUX_GRUPO")
 ).withColumn('QTD_MINUTOS_PARADA', (unix_timestamp(col('NUM_VALOR')) - unix_timestamp(col('DATA_REF_INICIO_TRECHO'))) / 60)\
-.filter(col('QTD_MINUTOS_PARADA') >= 120)
+.filter(col('QTD_MINUTOS_PARADA') <= 120)
 
 aux_grupo = when((unix_timestamp(lag(max_dt_final).over(wd_paradas)) - unix_timestamp(col('DATA_REF_INICIO_TRECHO'))) < - parametros['tolerancia_paradas'][0] * 60, 1).otherwise(0)
 
