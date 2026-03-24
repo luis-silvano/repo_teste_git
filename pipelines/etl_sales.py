@@ -9,6 +9,7 @@ limpo = (
     df
     .filter(F.col("status") == "OK")
     .filter(F.col("amount") > 100)
+    .filter(F.col("cliente") == "José da silva")
 )
 
 # KPIs
